@@ -3,5 +3,6 @@
 		"./hello/Cargo.toml",
 		"./vector/Cargo.toml",
 		"./bingo/Cargo.toml",
+		"./hashmap/Cargo.toml",
 	]
 }
