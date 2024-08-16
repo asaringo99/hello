@@ -26,4 +26,43 @@ fn main() {
     for c in s1.chars() {
         println!("{}", c);
     }
+
+    use std::collections::HashMap;
+
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+    println!("{}", scores["Blue"]);
+
+    let field = String::from("field");
+    let value = String::from("value");
+    let mut map = HashMap::new();
+    map.insert((&field).to_string(), value);
+    println!("{}", map[&field]);
+    println!("{}", field);
+
+    for (key, value) in &scores {
+        println!("{}: {}", key, value);
+    }
+
+    println!("{:?}", scores);
+
+    scores.entry(String::from("Red")).or_insert(30);
+    println!("{:?}", scores);
+    
+    let text = "hello world wonderful world";
+    let mut map = HashMap::new();
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+    println!("{:?}", map);
+    
+    let text = "hello world wonderful world";
+    let mut map = HashMap::new();
+    for word in text.chars() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+    println!("{:?}", map);
 }
