@@ -1,3 +1,5 @@
+fn br() { print!("\n") }
+
 #[derive(Debug)]
 enum SpreadsheetCell {
     Int(i32),
@@ -20,7 +22,7 @@ fn main() {
     println!("{}, {}, {}, {}", s1, s2, s3, s4);
     println!("{}", &s1[0..1]);
     println!("{}", &"hello".to_string()[0..1]);
-
+    br();
     for c in s1.chars() {
         println!("{}", c);
     }
