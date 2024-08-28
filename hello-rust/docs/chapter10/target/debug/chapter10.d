@@ -1,0 +1,1 @@
+/Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter10/target/debug/chapter10: /Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter10/src/contents.rs /Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter10/src/main.rs
