@@ -1,4 +1,5 @@
 mod contents;
+
 use contents::Topic;
 
 use crate::contents::Summary;
@@ -10,6 +11,19 @@ fn publish(summary: &(impl Summary + Dispatcher)) -> String {
     let dispatch_value = summary.dispatch();
     println!("{}", dispatch_value);
     summary.summarize()
+}
+
+fn longer<'a>(s1: &'a str, s2: &'a str) -> &'a str {
+    if s1.len() > s2.len() {
+        s1
+    } else {
+        s2
+    }
+}
+
+fn f<'a>() -> &'a str {
+    let s: &'static str = "Wfsd";
+    s
 }
 
 fn main() {
@@ -26,5 +40,18 @@ fn main() {
     println!("{}", note.summarize());
 
     let topic = note.topic();
-    println!("{}", topic)
+    println!("{}", topic);
+
+    {
+        let s1 = "aaa";
+        let s2 = "aaaa";
+        let res;
+        {
+            res = longer(s1, s2);
+        }
+        println!("{}", res);
+    }
+
+    let x = f();
+    println!("{}", x)
 }
