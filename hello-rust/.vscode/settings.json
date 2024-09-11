@@ -1,5 +1,11 @@
 {
   "rust-analyzer.linkedProjects": [
-    "/Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter4/Cargo.toml"
+    "/Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter3/Cargo.toml",
+    "/Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter4/Cargo.toml",
+    "/Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter6/Cargo.toml",
+    "/Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter7/Cargo.toml",
+    "/Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter8/Cargo.toml",
+    "/Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter10/Cargo.toml",
+    "/Users/kokiasari/workspace/asaringo/hello/hello-rust/docs/chapter11/Cargo.toml",
   ],
 }
