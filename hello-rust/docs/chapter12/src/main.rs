@@ -1,4 +1,5 @@
 use std::env::{self};
+use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
 use std::process;
@@ -23,6 +24,17 @@ impl Config {
     }
 }
 
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let mut f = File::open(&config.filename).expect(&format!("file not found {}", &config.filename).to_string());
+    
+    let mut contents = String::new();
+    f.read_to_string(&mut contents)?;
+    
+    println!("With  text:\n{}", contents);
+
+    Ok(())
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
 
@@ -30,15 +42,10 @@ fn main() {
         println!("Problem parsing arguments: {}", err);
         process::exit(1);
     });
-    config.debug();
-    let filename = &config.filename;
-    let query = &config.query;
-    println!("{}, {}", filename, query);
 
-    let mut f = File::open(filename).expect(&format!("file not found {}", filename).to_string());
+    if let Err(e) = run(config) {
+        println!("Application error: {}", e);
 
-    let mut contents = String::new();
-    f.read_to_string(&mut contents).expect("something  went wrong reading the  file");
-
-    println!("With  text:\n{}", contents);
+        process::exit(1);
+    }
 }
