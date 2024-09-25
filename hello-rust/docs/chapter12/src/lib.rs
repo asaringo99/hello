@@ -31,13 +31,13 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let mut contents = String::new();
     f.read_to_string(&mut contents)?;
 
-    let mut res = if config.case_sensitive {
-        search(&config.query, &contents);
+    let res = if config.case_sensitive {
+        search(&config.query, &contents)
     } else {
-        search_case_insensitive(&config.query, &contents);
+        search_case_insensitive(&config.query, &contents)
     };
 
-    for line in search(&config.query, &contents) {
+    for line in res {
         println!("find : {}", line);
     }
 
