@@ -39,6 +39,19 @@ impl Universe {
     }
 }
 
+impl Universe {
+    pub fn get_cells(&self) -> &[Cell] {
+        &self.cells
+    }
+
+    pub fn set_cells(&mut self, cells: &[(u32, u32)]) {
+        for (row, col) in cells.iter().cloned() {
+            let idx = self.get_index(row, col);
+            self.cells[idx] = Cell::Arrive;
+        }
+    }
+}
+
 #[wasm_bindgen]
 impl Universe {
     pub fn tick(&mut self) {
@@ -95,6 +108,15 @@ impl Universe {
 
     pub fn render(&self) -> String {
         self.to_string()
+    }
+    pub fn set_width(&mut self, width: u32) {
+        self.width = width;
+        self.cells = (0..width * self.height).map(|_i| Cell::Dead).collect();
+    }
+
+    pub fn set_height(&mut self, height: u32) {
+        self.height = height;
+        self.cells = (0..self.width * height).map(|_i| Cell::Dead).collect();
     }
 }
 
