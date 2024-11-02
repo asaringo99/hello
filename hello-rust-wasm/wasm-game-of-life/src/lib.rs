@@ -1,6 +1,13 @@
 use std::fmt;
 mod utils;
 use wasm_bindgen::prelude::*;
+extern crate web_sys;
+
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).info());
+    };
+}
 
 #[wasm_bindgen]
 #[repr(u8)]
@@ -76,6 +83,8 @@ impl Universe {
     }
 
     pub fn new() -> Universe {
+        utils::set_panic_hook();
+
         let width = 64;
         let height = 64;
 
