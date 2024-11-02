@@ -1,3 +1,0 @@
-[submodule "www"]
-    path = /Users/asaringo/workspace/asaringo/hello/hello-rust-wasm/wasm-game-of-life/www
-    url = https://github.com/rustwasm/create-wasm-app.git
