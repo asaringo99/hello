@@ -7,6 +7,45 @@ const GRID_COLOR = "#000000";
 const DEAD_COLOR = "#000000";
 const ALIVE_COLOR = "#FFFF00";
 
+const fps = new class {
+    constructor() {
+        this.SIZE = 100;
+        this.fps = document.getElementById("fps");
+        this.frames = [];
+        this.lastFrameTimeStamp = performance.now();
+    }
+
+    render() {
+        const now = performance.now();
+        const delta = now - this.lastFrameTimeStamp;
+        this.lastFrameTimeStamp = now;
+        const fps = 1 / delta * 1000;
+
+        this.frames.push(fps);
+        if (this.frames.length > this.SIZE) {
+            this.frames.shift();
+        }
+
+        let min = Infinity;
+        let max = -Infinity;
+        let sum = 0;
+        for (let i = 0; i < this.frames.length; i++) {
+            sum += this.frames[i];
+            min = Math.min(this.frames[i], min);
+            max = Math.max(this.frames[i], max);
+        }
+        let mean = sum / this.frames.length;
+
+        this.fps.textContent = `
+Frames per Second:
+         latest = ${Math.round(fps)}
+avg of last ${this.SIZE} = ${Math.round(mean)}
+min of last ${this.SIZE} = ${Math.round(min)}
+max of last ${this.SIZE} = ${Math.round(max)}
+`.trim();
+    }
+};
+
 const universe = Universe.new();
 const width = universe.width();
 const height = universe.height();
@@ -89,20 +128,33 @@ const drawCells = () => {
     
     ctx.beginPath();
     
+    ctx.fillStyle = ALIVE_COLOR;
     for (let row = 0; row < height; row++) {
         for (let col = 0; col < width; col++) {
             const idx = getIndex(row, col);
-            
-            ctx.fillStyle = cells[idx] === Cell.Dead
-            ? DEAD_COLOR
-            : ALIVE_COLOR;
-            
-            ctx.fillRect(
-                col * (CELL_SIZE + 1) + 1,
-                row * (CELL_SIZE + 1) + 1,
-                CELL_SIZE,
-                CELL_SIZE
-            );
+            if (cells[idx] === Cell.Arrive) {
+                ctx.fillRect(
+                    col * (CELL_SIZE + 1) + 1,
+                    row * (CELL_SIZE + 1) + 1,
+                    CELL_SIZE,
+                    CELL_SIZE
+                );
+            }
+        }
+    }
+
+    ctx.fillStyle = DEAD_COLOR;
+    for (let row = 0; row < height; row++) {
+        for (let col = 0; col < width; col++) {
+            const idx = getIndex(row, col);
+            if (cells[idx] === Cell.Dead) {
+                ctx.fillRect(
+                    col * (CELL_SIZE + 1) + 1,
+                    row * (CELL_SIZE + 1) + 1,
+                    CELL_SIZE,
+                    CELL_SIZE
+                );
+            }
         }
     }
 
@@ -110,6 +162,8 @@ const drawCells = () => {
 };
 
 const renderLoop = () => {
+    fps.render();
+
     universe.tick();
 
     drawGrid();
