@@ -17,6 +17,15 @@ pub enum Cell {
     Arrive = 1,
 }
 
+impl Cell {
+    fn toggle(&mut self) {
+        *self = match *self {
+            Cell::Arrive => Cell::Dead,
+            Cell::Dead => Cell::Arrive,
+        };
+    }
+}
+
 #[wasm_bindgen]
 pub struct Universe {
     width: u32,
@@ -80,6 +89,11 @@ impl Universe {
             }
         }
         self.cells = next
+    }
+
+    pub fn toggle_cell(&mut self, row: u32, col: u32) {
+        let idx = self.get_index(row, col);
+        self.cells[idx].toggle();
     }
 
     pub fn new() -> Universe {
